@@ -60,25 +60,36 @@ To obtain the connection string:
 
 **Sample Connection String**
 
-When complete, your connection string should look something like this:
+When complete, your connection string should look something like this (NOTE: `userName` and `password` will be whatever database login you created earlier):
 
 ```
 mongodb://userName:password@senecaweb-shard-00-00-abcd.mongodb.net:27017,senecaweb-shard-00-01-abcd.mongodb.net:27017,senecaweb-shard-00-02-fe4bt.mongodb.net:27017/teams-api-data?ssl=true&replicaSet=SenecaWeb-shard-0&authSource=admin&retryWrites=true
 ```
 
-### UPDATING The mongoDBConnectionString in server.js:
+### UPDATING The mongoDBConnectionString in .env:
 
-1. First, switch back to the previous directory using the integrated terminal (cd ..) so that our working directory has the "server.js" file in it.
+Server applications should never include secrets or other configuration information.
+Instead, we place this so-called **config** information in an environment file.
+It is common to name such a file `.env`, and to exclude it from source control (i.e.,
+add this file to `.gitignore` so git won't include it) so that it is safe to place passwords and other sensitive information in them.
 
-2. Next, open the server.js file and using the credentials identified above, modify the mongoDBConnectionString value your newly completed connection string (from above)
+When the server is started, the environment file is read, and environment variables
+created based on the `key="value"` entries in that file.  In a node.js application,
+we use [`process.env`](https://nodejs.org/api/process.html#process_process_env) (e.g., `process.env.VARIABLE_NAME`) to read these values and use them when our code runs.
 
-3. Save the changes and run the server from the integrated terminal using the familiar command "node server.js"
+To create your `.env` file, do the following:
 
-4. If the server starts successfully (ie: you see the output: "API listening on: 8081", then the connection to your MongoDB Atlass Account has succeeded!  
+1. First, switch back to the previous directory using the integrated terminal (`cd ..`) so that our working directory has the `sample.env` file in it.
+
+2. Next, copy the `sample.env` in order to create a file named `.env`: `cp sample.env .env`
+
+3. Open the `.env` file in VSCode and modify it to include your MongoDB Atlas connection string for the teams-api-data database, including the `username:password` values you created above.
+
+4. Start your node server using the [`heroku local`](https://devcenter.heroku.com/articles/heroku-local) command. If the server starts successfully (ie: you see the output: "API listening on: 8081", then the connection to your MongoDB Atlas Account has succeeded!
 
 5.  At this point, it will be easiest if you push this server to Heroku, so that you can easily use it in all of your projects, without having to start up a local copy of the API server every time we want access to the data.  
 
-**Note:** For a refresher on how initialize the folder with a .git repository, create an App with the Heroku CLI, and publish the App to Heroku, refer to the WEB322 notes on ["Getting Started with Heroku"](http://zenit.senecac.on.ca/~patrick.crawford/index.php/web322/course-notes/getting-started-with-heroku).
+**Note:** For a refresher on how initialize the folder with a .git repository, create an App with the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli), and publish the App to Heroku, refer to the WEB322 notes on ["Getting Started with Heroku"](http://zenit.senecac.on.ca/~patrick.crawford/index.php/web322/course-notes/getting-started-with-heroku).
 
 ## USING THE API
 

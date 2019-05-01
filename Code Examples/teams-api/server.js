@@ -1,14 +1,24 @@
-const mongoDBConnectionString = "Enter Your MongoDB Connection String Here";
+/**
+ * Set your MongoDB Connection String in a file called `.env`
+ * You can copy the `sample.env` file to create this, and then
+ * place your connection string in this new file.  We store secrets
+ * and other environment variables outside of our code.
+ */
+const mongoDBConnectionString = process.env.MONGODB_CONNECTION_STRING;
 const HTTP_PORT = process.env.PORT || 8081;
 
 const express = require("express");
-const bodyParser = require('body-parser');
-
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const dataService = require("./data-service.js");
 
 const data = dataService(mongoDBConnectionString);
 const app = express();
+
+// Use Standard Apache combined log output, https://www.npmjs.com/package/morgan#combined
+// :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"
+app.use(morgan("combined"));
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -250,6 +260,7 @@ data.connect().then(()=>{
     app.listen(HTTP_PORT, ()=>{console.log("API listening on: " + HTTP_PORT)});
 })
 .catch((err)=>{
-    console.log("unable to start the server: " + err);
+    console.log("unable to start the server: ", err.message);
+    console.log("Did you remember to set your MongoDB Connection String in .env?");
     process.exit();
 });
