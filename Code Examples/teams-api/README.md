@@ -8,7 +8,7 @@
 
 Once you have cloned the repository, move the teams-api folder out of the "Code Examples" folder and open it in Visual Studio Code and issue the command "npm install" from the integrated terminal.  This will look at the package.json file and add the required dependant modules.
 
-If you open the "server.js" file, you will notice that the top 2 lines define the constants "mongoDBConnectionString" and "HTTP_PORT".  The HTTP_PORT is fine the way it is (unless you have a conflict on your local machine with port 8081), however the mongoDBConnectionString value will need to change...
+If you open the "server.js" file, you will notice that the top 2 lines define the constants "mongoDBConnectionString" and "HTTP_PORT".  The HTTP_PORT is fine the way it is (unless you have a conflict on your local machine with port 5000), however the mongoDBConnectionString value will need to change...
 
 ### MongoDB Database:
 
@@ -92,7 +92,7 @@ To create your `.env` file, do the following:
 3. Open the `.env` file in VSCode and modify it to include your MongoDB Atlas connection string for the teams-api-data database, including the `username:password` values you created above.
 
 4. Start your node server using the [`heroku local`](https://devcenter.heroku.com/articles/heroku-local) command. Because we'll eventually deploy to Heroku, using the `heroku local` command is a good
-way to test that everything is in order. If the server starts successfully (ie: you see the output: "API listening on: 8081", then the connection to your MongoDB Atlas Account has succeeded!
+way to test that everything is in order. If the server starts successfully (ie: you see the output: "API listening on: 5000", then the connection to your MongoDB Atlas Account has succeeded!  NOTE: you can change the port you use with the `-p` flag: `heroku local -p 8081`.
 
 5.  At this point, it will be easiest if you push this server to Heroku, so that you can easily use it in all of your projects, without having to start up a local copy of the API server every time we want access to the data.  
 
